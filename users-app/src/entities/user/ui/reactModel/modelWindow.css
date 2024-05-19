@@ -1,0 +1,75 @@
+.overlay {
+    padding: 20px;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRfS27IeBYzmTC18-VR4qbkAWl5TfeldnVVUw&s");
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+   padding-left: 35%;
+}
+
+.overlay h2, label {
+    color: aliceblue;
+}
+
+.overlay label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+
+.overlay input {
+    width: 50%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease-in-out;
+}
+
+.overlay input:focus {
+    border-color: #007bff;
+}
+
+.userBtn {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.save, .close {
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.save {
+    background-color: #007bff;
+    color: white;
+}
+
+.save:hover {
+    background-color: #0056b3;
+}
+
+.close {
+    background-color: #dc3545;
+    color: white;
+}
+
+.close:hover {
+    background-color: #b02a37;
+}
+
+.ReactModal__Overlay {
+    background: rgba(0, 0, 0, 0.5); /* Полупрозрачный черный фон */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.ReactModal__Content {
+    background: transparent; /* Прозрачный фон модального окна */
+    border: none;
+}
