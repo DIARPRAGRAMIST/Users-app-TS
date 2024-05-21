@@ -1,0 +1,22 @@
+.user-card {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    background-image: url('https://cdn.pixabay.com/photo/2016/11/23/15/08/wooden-floor-1853417_640.jpg');
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    background-size: cover;
+    background-position: center; /* Выравнивает изображение по центру */
+    height: 100%;
+    margin-left: 40%;
+    margin-right: 40%;
+  }
+  
+  .user-card p {
+    margin: 8px 0;
+  }
+  
+  .user-card button {
+    margin-right: 8px;
+  }
+  

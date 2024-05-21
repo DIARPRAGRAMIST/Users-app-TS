@@ -19,22 +19,24 @@ function Users() {
   };
 
   return (
-    <div className='users' style={{ paddingLeft: "40%" }}>
+    <div className='users'>
       {users.map(user => (
-        <div key={user.id}>
-          <p>name: {user.name}</p>
-          <p>email: {user.email}</p>
-          <p>city: {user.address.city}</p> {/* Обращаемся к city через address */}
-          <Button onClick={() => handleDelete(user.id)}>delete</Button>
-          <Button onClick={() => openModal(user)}>edit</Button>
+        <div className="user-card" key={user.id}>
+          <p>Name: {user.name}</p>
+          <p>Email: {user.email}</p>
+          <p>City: {user.address.city}</p>
+          <Button onClick={() => handleDelete(user.id)}>Delete</Button>
+          <Button onClick={() => openModal(user)}>Edit</Button>
         </div>
       ))}
-      <ModalWindow
-        isOpen={isModalOpen}
-        onRequestClose={closeModal}
-        user={editingUser}
-        saveUser={saveEditedUser}
-      />
+      {editingUser && (
+        <ModalWindow
+          isOpen={isModalOpen}
+          onRequestClose={closeModal}
+          user={editingUser}
+          saveUser={saveEditedUser}
+        />
+      )}
     </div>
   );
 }

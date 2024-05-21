@@ -1,13 +1,8 @@
 import { UsersPages } from "../pages/usersCard"
 
-
-
 function App() {
-
-
   return (
     <>
-
     <UsersPages />
     </>
   )

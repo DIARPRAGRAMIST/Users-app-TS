@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import ReactModal from 'react-modal';
 import './modelWindow.css';
-import { User } from '../../model/types';
-import { ModalWindowProps } from '../../model/types';
+import { User, ModalWindowProps } from '../../model/types';
 
 const ModalWindow: React.FC<ModalWindowProps> = ({ isOpen, onRequestClose, user, saveUser }) => {
     const [formData, setFormData] = useState<User | null>(user);
@@ -25,7 +24,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({ isOpen, onRequestClose, user,
         }
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: FormEvent) => {
         e.preventDefault();
         if (formData) {
             saveUser(formData);
@@ -36,21 +35,43 @@ const ModalWindow: React.FC<ModalWindowProps> = ({ isOpen, onRequestClose, user,
     if (!formData) return null;
 
     return (
-        <ReactModal isOpen={isOpen} onRequestClose={onRequestClose} contentLabel="Edit User Modal">
+        <ReactModal 
+            className="modal" 
+            isOpen={isOpen} 
+            onRequestClose={onRequestClose} 
+            contentLabel="Edit User Modal"
+        >
             <div className='overlay'>
-                <h2>Edit User</h2>
-                <form onSubmit={handleSubmit}>
-                    <label>Name:</label>
-                    <input type="text" name="name" value={formData.name} onChange={handleChange} />
-                    <label>Email:</label>
-                    <input type="email" name="email" value={formData.email} onChange={handleChange} />
-                    <label>City:</label>
-                    <input type="text" name="city" value={formData.address.city} onChange={handleChange} />
-                    <div className='userBtn'>
-                        <button className='save' type="submit">Save</button>
-                        <button className='close' type="button" onClick={onRequestClose}>Close</button>
-                    </div>
-                </form>
+                <div className='modalW'>
+                    <h2>Edit User</h2>
+                    <form onSubmit={handleSubmit}>
+                        <label>Name:</label>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            value={formData.name} 
+                            onChange={handleChange} 
+                        />
+                        <label>Email:</label>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={formData.email} 
+                            onChange={handleChange} 
+                        />
+                        <label>City:</label>
+                        <input 
+                            type="text" 
+                            name="city" 
+                            value={formData.address.city} 
+                            onChange={handleChange} 
+                        />
+                        <div className='userBtn'>
+                            <button className='save' type="submit">Save</button>
+                            <button className='close' type="button" onClick={onRequestClose}>Close</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </ReactModal>
     );

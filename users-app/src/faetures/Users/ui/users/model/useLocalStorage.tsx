@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { User } from "../../../../../entities/user/model/types";
-import { baseUrl } from "../../../../../entities/user/model/api";
+import { baseUrl } from "../../../../../entities/user/model/BaseUrl";
 
 const USERS_LOCAL_STORAGE_KEY = "users";
 
@@ -17,31 +17,51 @@ export const useUsers = () => {
             }
         };
 
+        const fetchUsersFromAPI = async () => {
+            try {
+                const { data } = await axios.get<User[]>(baseUrl);
+                setUsers(data);
+                localStorage.setItem(USERS_LOCAL_STORAGE_KEY, JSON.stringify(data));
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+
         loadUsersFromLocalStorage();
+        if (users.length === 0) {
+            fetchUsersFromAPI();
+        }
+    }, [users.length]);
+
+    useEffect(() => {
+        const fetchUsersFromAPI = async () => {
+            try {
+                const { data } = await axios.get<User[]>(baseUrl);
+                setUsers(data);
+                localStorage.setItem(USERS_LOCAL_STORAGE_KEY, JSON.stringify(data));
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
 
         if (users.length === 0) {
-            axios
-                .get<User[]>(baseUrl)
-                .then((res) => {
-                    setUsers(res.data);
-                    localStorage.setItem(USERS_LOCAL_STORAGE_KEY, JSON.stringify(res.data));
-                })
-                .catch((error) => {
-                    console.error("Error fetching users:", error);
-                });
+            fetchUsersFromAPI();
         }
-    }, []);
+    }, [users.length]);
 
-    const handleDelete = (id: number) => {
-        const updatedUsers = users.filter((user) => user.id !== id);
+    const updateUserStorage = (updatedUsers: User[]) => {
         setUsers(updatedUsers);
         localStorage.setItem(USERS_LOCAL_STORAGE_KEY, JSON.stringify(updatedUsers));
     };
 
+    const handleDelete = (id: number) => {
+        const updatedUsers = users.filter((user) => user.id !== id);
+        updateUserStorage(updatedUsers);
+    };
+
     const handleEdit = (editedUser: User) => {
         const updatedUsers = users.map((user) => (user.id === editedUser.id ? editedUser : user));
-        setUsers(updatedUsers);
-        localStorage.setItem(USERS_LOCAL_STORAGE_KEY, JSON.stringify(updatedUsers));
+        updateUserStorage(updatedUsers);
     };
 
     const handleEditUser = (user: User) => {
@@ -52,22 +72,6 @@ export const useUsers = () => {
         handleEdit(editedUser);
         setEditingUser(null);
     };
-
-    const allUsersDeleted = users.length === 0;
-
-    useEffect(() => {
-        if (allUsersDeleted) {
-            axios
-                .get<User[]>(baseUrl)
-                .then((res) => {
-                    setUsers(res.data);
-                    localStorage.setItem(USERS_LOCAL_STORAGE_KEY, JSON.stringify(res.data));
-                })
-                .catch((error) => {
-                    console.error("Error fetching users:", error);
-                });
-        }
-    }, [allUsersDeleted]);
 
     return { handleDelete, handleEdit, users, handleEditUser, saveEditedUser, editingUser };
 };

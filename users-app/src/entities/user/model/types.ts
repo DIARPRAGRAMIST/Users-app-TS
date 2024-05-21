@@ -1,13 +1,12 @@
 export interface Address {
     city: string;
-    // другие свойства address, если есть
   }
   
   export interface User {
     id: number;
     name: string;
     email: string;
-    address: Address; // вложенный объект address
+    address: Address; 
   }
 export interface ModalWindowProps {
     isOpen: boolean;
