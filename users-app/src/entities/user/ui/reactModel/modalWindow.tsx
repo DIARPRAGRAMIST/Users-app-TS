@@ -1,5 +1,4 @@
 import React, { useState, useEffect, FormEvent } from 'react';
-import ReactModal from 'react-modal';
 import './modelWindow.css';
 import { User, ModalWindowProps } from '../../model/types';
 
@@ -32,20 +31,15 @@ const ModalWindow: React.FC<ModalWindowProps> = ({ isOpen, onRequestClose, user,
         onRequestClose();
     };
 
-    if (!formData) return null;
+    if (!isOpen || !formData) return null;
 
     return (
-        <ReactModal 
-            className="modal" 
-            isOpen={isOpen} 
-            onRequestClose={onRequestClose} 
-            contentLabel="Edit User Modal"
-        >
-            <div className='overlay'>
-                <div className='modalW'>
-                    <h2>Edit User</h2>
+        <div className='overlay'>
+            <div className='modal'>
+                <div className='modal-content'>
+                    <h2>Редактировать пользователя</h2>
                     <form onSubmit={handleSubmit}>
-                        <label>Name:</label>
+                        <label>Имя:</label>
                         <input 
                             type="text" 
                             name="name" 
@@ -59,7 +53,7 @@ const ModalWindow: React.FC<ModalWindowProps> = ({ isOpen, onRequestClose, user,
                             value={formData.email} 
                             onChange={handleChange} 
                         />
-                        <label>City:</label>
+                        <label>Город:</label>
                         <input 
                             type="text" 
                             name="city" 
@@ -67,13 +61,13 @@ const ModalWindow: React.FC<ModalWindowProps> = ({ isOpen, onRequestClose, user,
                             onChange={handleChange} 
                         />
                         <div className='userBtn'>
-                            <button className='save' type="submit">Save</button>
-                            <button className='close' type="button" onClick={onRequestClose}>Close</button>
+                            <button className='save' type="submit">Сохранить</button>
+                            <button className='close' type="button" onClick={onRequestClose}>Закрыть</button>
                         </div>
                     </form>
                 </div>
             </div>
-        </ReactModal>
+        </div>
     );
 };
 

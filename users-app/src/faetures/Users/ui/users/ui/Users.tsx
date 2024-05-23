@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Button } from "../../../../../shared/ui";
 import { useUsers } from "../model/useLocalStorage";
 import ModalWindow from "../../../../../entities/user";
@@ -22,11 +22,11 @@ function Users() {
     <div className='users'>
       {users.map(user => (
         <div className="user-card" key={user.id}>
-          <p>Name: {user.name}</p>
+          <p>Имя: {user.name}</p>
           <p>Email: {user.email}</p>
-          <p>City: {user.address.city}</p>
-          <Button onClick={() => handleDelete(user.id)}>Delete</Button>
-          <Button onClick={() => openModal(user)}>Edit</Button>
+          <p>Город: {user.address.city}</p>
+          <Button onClick={() => handleDelete(user.id)}>Удалить</Button>
+          <Button onClick={() => openModal(user)}>Редактировать</Button>
         </div>
       ))}
       {editingUser && (
